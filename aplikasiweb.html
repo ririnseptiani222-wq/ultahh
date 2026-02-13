@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selamat Ulang Tahun Rina 🎉</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to top, #a8e063, #56ab2f);
+    text-align: center;
+    color: #1b5e20;
+}
+
+/* Gunung */
+.mountain {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 300px solid transparent;
+    border-right: 300px solid transparent;
+    border-bottom: 400px solid #2e7d32;
+}
+
+.mountain.small {
+    left: 60%;
+    border-left: 200px solid transparent;
+    border-right: 200px solid transparent;
+    border-bottom: 250px solid #388e3c;
+}
+
+.mountain.large {
+    left: 10%;
+}
+
+/* Awan */
+.cloud {
+    position: absolute;
+    background: white;
+    border-radius: 50px;
+    width: 120px;
+    height: 60px;
+    opacity: 0.8;
+    animation: moveCloud 40s linear infinite;
+}
+
+.cloud::before, .cloud::after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+}
+
+.cloud::before {
+    width: 70px;
+    height: 70px;
+    top: -30px;
+    left: 10px;
+}
+
+.cloud::after {
+    width: 90px;
+    height: 90px;
+    top: -40px;
+    right: 10px;
+}
+
+@keyframes moveCloud {
+    from { left: -200px; }
+    to { left: 110%; }
+}
+
+/* Burung */
+.bird {
+    position: absolute;
+    font-size: 30px;
+    animation: fly 20s linear infinite;
+}
+
+@keyframes fly {
+    from { left: -50px; top: 100px; }
+    to { left: 110%; top: 150px; }
+}
+
+/* Card */
+.card {
+    position: relative;
+    top: 20vh;
+    background: rgba(255,255,255,0.85);
+    padding: 30px;
+    border-radius: 20px;
+    display: inline-block;
+    box-shadow: 0 0 30px rgba(0,0,0,0.3);
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+button {
+    padding: 12px 25px;
+    background: #43a047;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #1b5e20;
+    transform: scale(1.1);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Daun jatuh */
+.leaf {
+    position: absolute;
+    font-size: 20px;
+    animation: fall 10s linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Konfeti */
+.confetti {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    animation: confettiFall 4s linear infinite;
+}
+
+@keyframes confettiFall {
+    to {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+</audio>
+
+<div class="mountain large"></div>
+<div class="mountain small"></div>
+
+<div class="cloud" style="top:80px;"></div>
+<div class="cloud" style="top:150px; animation-delay:10s;"></div>
+
+<div class="bird">🕊️</div>
+
+<div class="card">
+    <h1>🎉 Selamat Ulang Tahun Rina 🎂</h1>
+    <p id="message" class="hidden">
+        Hari ini adalah awal perjalanan baru yang penuh harapan 🌄✨<br><br>
+        Semoga setiap langkah Rina setinggi gunung impianmu,
+        sekuat batu karang keteguhan hatimu,
+        dan sehijau alam yang penuh kehidupan 🌿<br><br>
+        Doa terbaik untuk Rina:<br>
+        Semoga diberi kesehatan, kebahagiaan, kesuksesan,
+        dan dikelilingi orang-orang yang tulus mencintaimu 🤍<br><br>
+        ✨ Kata Mutiara ✨<br>
+        "Hidup seperti mendaki gunung.
+        Mungkin lelah, tapi pemandangan di puncaknya
+        selalu sepadan dengan perjuangan."
+    </p>
+    <button onclick="showMessage()">Klik Untuk Membuka Ucapan 🌿</button>
+</div>
+
+<script>
+// Daun jatuh
+function createLeaf() {
+    const leaf = document.createElement("div");
+    leaf.classList.add("leaf");
+    leaf.innerHTML = "🍃";
+    document.body.appendChild(leaf);
+
+    leaf.style.left = Math.random() * window.innerWidth + "px";
+    leaf.style.animationDuration = (Math.random() * 5 + 5) + "s";
+
+    setTimeout(() => {
+        leaf.remove();
+    }, 10000);
+}
+setInterval(createLeaf, 800);
+
+// Tampilkan pesan + musik + konfeti
+function showMessage() {
+    document.getElementById("message").classList.remove("hidden");
+    document.getElementById("music").play();
+    createConfetti();
+}
+
+function createConfetti() {
+    for (let i = 0; i < 60; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        document.body.appendChild(confetti);
+
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        confetti.style.background = `hsl(${Math.random()*120}, 70%, 50%)`;
+        confetti.style.animationDuration = (Math.random()*3+2) + "s";
+
+        setTimeout(() => {
+            confetti.remove();
+        }, 4000);
+    }
+}
+</script>
+
+</body>
+</html>
+
+
